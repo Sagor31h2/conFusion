@@ -1,3 +1,4 @@
+import { DishService } from "./services/dish.service";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -13,7 +14,7 @@ import { from } from "rxjs";
 
 import "hammerjs";
 import { MenuComponent } from "./menu/menu.component";
-import { DishdetialComponent } from './dishdetial/dishdetial.component';
+import { DishdetialComponent } from "./dishdetial/dishdetial.component";
 
 @NgModule({
   declarations: [AppComponent, MenuComponent, DishdetialComponent],
@@ -27,7 +28,7 @@ import { DishdetialComponent } from './dishdetial/dishdetial.component';
     MatCardModule,
     MatButtonModule,
   ],
-  providers: [],
+  providers: [DishService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
