@@ -8,7 +8,7 @@
 
   <div fxFlex>
     <mat-grid-list cols="2" rowHeight="200px">
-      <mat-grid-tile *ngFor="let dish of dishes">
+      <mat-grid-tile *ngFor="let dish of dishes" (click)="onSelect(dish)">
         <img
           height="200px"
           matListAvatar
@@ -22,5 +22,5 @@
     </mat-grid-list>
   </div>
 
-  <app-dishdetial></app-dishdetial>
+  <app-dishdetial [dish]="selectedDish"></app-dishdetial>
 </div>
