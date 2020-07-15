@@ -13,9 +13,10 @@ import { from } from "rxjs";
 
 import "hammerjs";
 import { MenuComponent } from "./menu/menu.component";
+import { DishdetialComponent } from './dishdetial/dishdetial.component';
 
 @NgModule({
-  declarations: [AppComponent, MenuComponent],
+  declarations: [AppComponent, MenuComponent, DishdetialComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
