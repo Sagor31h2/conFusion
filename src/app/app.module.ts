@@ -1,3 +1,4 @@
+import { PromotionService } from "./services/promotion.service";
 import { AppRoutingModule } from "./app-routing/app-routing.module";
 import { DishService } from "./services/dish.service";
 
@@ -45,7 +46,7 @@ import { ContactComponent } from "./contact/contact.component";
     MatCardModule,
     MatButtonModule,
   ],
-  providers: [DishService],
+  providers: [DishService, PromotionService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
