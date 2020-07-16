@@ -17,9 +17,10 @@ import { MenuComponent } from "./menu/menu.component";
 import { DishdetialComponent } from "./dishdetial/dishdetial.component";
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
-  declarations: [AppComponent, MenuComponent, DishdetialComponent, HeaderComponent, FooterComponent],
+  declarations: [AppComponent, MenuComponent, DishdetialComponent, HeaderComponent, FooterComponent, AboutComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
