@@ -11,6 +11,7 @@ import { from } from "rxjs";
 })
 export class MenuComponent implements OnInit {
   dishes: Dish[];
+  errMess: string;
 
   constructor(
     private dishService: DishService,
@@ -18,6 +19,12 @@ export class MenuComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.dishService.getDishes().subscribe((dishes) => (this.dishes = dishes));
+    this.dishService
+      .getDishes()
+      .subscribe(
+        (dishes) => (
+          (this.dishes = dishes), (errMess) => (this.errMess = <any>errMess)
+        )
+      );
   }
 }

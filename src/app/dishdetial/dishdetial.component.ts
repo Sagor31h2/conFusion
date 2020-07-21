@@ -21,6 +21,7 @@ import { switchMap } from "rxjs/operators";
 export class DishdetialComponent implements OnInit {
   dish: Dish;
   dishIds: string[];
+  errMess: string;
   prev: string;
   next: string;
 
@@ -65,10 +66,13 @@ export class DishdetialComponent implements OnInit {
       .pipe(
         switchMap((params: Params) => this.dishservice.getDish(params["id"]))
       )
-      .subscribe((dish) => {
-        this.dish = dish;
-        this.setPrevNext(dish.id);
-      });
+      .subscribe(
+        (dish) => {
+          this.dish = dish;
+          this.setPrevNext(dish.id);
+        },
+        (errMess) => (this.errMess = <any>errMess)
+      );
   }
 
   setPrevNext(dishId: string) {

@@ -3,6 +3,7 @@ import { LeaderService } from "./services/leader.service";
 import { PromotionService } from "./services/promotion.service";
 import { AppRoutingModule } from "./app-routing/app-routing.module";
 import { DishService } from "./services/dish.service";
+import { ProcessHTTPMsgService } from "./services/process-httpmsg.service";
 
 //browser module
 import { BrowserModule } from "@angular/platform-browser";
@@ -93,6 +94,7 @@ import { LoginComponent } from "./login/login.component";
     DishService,
     PromotionService,
     LeaderService,
+    ProcessHTTPMsgService,
     { provide: "BaseURL", useValue: baseURL },
   ],
   entryComponents: [LoginComponent],
