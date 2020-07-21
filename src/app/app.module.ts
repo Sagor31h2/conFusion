@@ -8,6 +8,8 @@ import { DishService } from "./services/dish.service";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { HttpClientModule } from "@angular/common/http";
+import { baseURL } from "./shared/baseurl";
 
 //matial module
 import { MatToolbarModule } from "@angular/material/toolbar";
@@ -72,6 +74,7 @@ import { LoginComponent } from "./login/login.component";
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    HttpClientModule,
     MatToolbarModule,
     MatListModule,
     MatGridListModule,
@@ -86,7 +89,12 @@ import { LoginComponent } from "./login/login.component";
     MatProgressSpinnerModule,
     MatSliderModule,
   ],
-  providers: [DishService, PromotionService, LeaderService],
+  providers: [
+    DishService,
+    PromotionService,
+    LeaderService,
+    { provide: "BaseURL", useValue: baseURL },
+  ],
   entryComponents: [LoginComponent],
   bootstrap: [AppComponent],
 })
