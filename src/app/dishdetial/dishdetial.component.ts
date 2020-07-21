@@ -28,6 +28,7 @@ export class DishdetialComponent implements OnInit {
   //rating form
   commentForm: FormGroup;
   comment: Comment;
+  dishCopy: Dish;
 
   formErrors = {
     author: "",
@@ -69,6 +70,7 @@ export class DishdetialComponent implements OnInit {
       .subscribe(
         (dish) => {
           this.dish = dish;
+          this.dishCopy = dish;
           this.setPrevNext(dish.id);
         },
         (errMess) => (this.errMess = <any>errMess)
@@ -107,7 +109,18 @@ export class DishdetialComponent implements OnInit {
   onSubmit() {
     this.comment = this.commentForm.value;
     this.comment.date = new Date().toISOString();
-    this.dish.comments.push(this.comment);
+    this.dishCopy.comments.push(this.comment);
+    this.dishservice.putDish(this.dishCopy).subscribe(
+      (dish) => {
+        this.dish = this.dish;
+        this.dishCopy = dish;
+      },
+      (errMess) => {
+        this.dish = null;
+        this.dishCopy = null;
+        this.errMess = <any>errMess;
+      }
+    );
     this.commentForm.reset({
       author: "",
       rating: 5,
