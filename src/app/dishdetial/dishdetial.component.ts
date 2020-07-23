@@ -13,10 +13,37 @@ import { Location } from "@angular/common";
 import { from } from "rxjs";
 import { switchMap } from "rxjs/operators";
 
+import {
+  trigger,
+  state,
+  animate,
+  style,
+  transition,
+} from "@angular/animations";
+
 @Component({
   selector: "app-dishdetial",
   templateUrl: "./dishdetial.component.html",
   styleUrls: ["./dishdetial.component.scss"],
+  animations: [
+    trigger("visibility", [
+      state(
+        "shown",
+        style({
+          transform: "scale(1.0)",
+          opacity: 1,
+        })
+      ),
+      state(
+        "hidden",
+        style({
+          transform: "scale(0.5)",
+          opacity: 0,
+        })
+      ),
+      transition("* => *", animate("0.5s ease-in-out")),
+    ]),
+  ],
 })
 export class DishdetialComponent implements OnInit {
   dish: Dish;
@@ -29,6 +56,7 @@ export class DishdetialComponent implements OnInit {
   commentForm: FormGroup;
   comment: Comment;
   dishCopy: Dish;
+  visibility = "shown";
 
   formErrors = {
     author: "",
@@ -65,13 +93,17 @@ export class DishdetialComponent implements OnInit {
 
     this.route.params
       .pipe(
-        switchMap((params: Params) => this.dishservice.getDish(params["id"]))
+        switchMap((params: Params) => {
+          this.visibility = "hidden";
+          return this.dishservice.getDish(params["id"]);
+        })
       )
       .subscribe(
         (dish) => {
           this.dish = dish;
           this.dishCopy = dish;
           this.setPrevNext(dish.id);
+          this.visibility = "shown";
         },
         (errMess) => (this.errMess = <any>errMess)
       );
