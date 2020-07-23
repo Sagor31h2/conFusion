@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, Inject } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Feedback, ContactType } from "../shared/feedback";
 import { flyInOut } from "../animations/app.animation";
+import { FeedbackService } from "../services/feedback.service";
 @Component({
   selector: "app-contact",
   templateUrl: "./contact.component.html",
@@ -16,7 +17,12 @@ export class ContactComponent implements OnInit {
   feedbackForm: FormGroup;
   feedback: Feedback;
   contactType = ContactType;
+  feedbackCopy: Feedback;
+  errMsg: string;
   @ViewChild("fform") feedbackFormDirective;
+  showForm = true;
+  showFeedback = false;
+  showSpinner = false;
 
   formErrors = {
     firstname: "",
@@ -46,7 +52,11 @@ export class ContactComponent implements OnInit {
     },
   };
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private feedbackService: FeedbackService,
+    @Inject("BaseURL") public BaseURL
+  ) {
     this.createForm();
   }
 
@@ -106,8 +116,28 @@ export class ContactComponent implements OnInit {
     }
   }
   onSubmit() {
-    this.feedback = this.feedbackForm.value;
-    console.log(this.feedback);
+    this.showForm = false;
+    this.showSpinner = true;
+    this.feedbackCopy = this.feedbackForm.value;
+    this.feedbackService.submitFeedback(this.feedbackCopy).subscribe(
+      (feedback) => {
+        this.feedback = feedback;
+        this.feedbackCopy = feedback;
+        this.showSpinner = false;
+        this.showFeedback = true;
+        setTimeout(() => {
+          this.showForm = true;
+          this.showFeedback = false;
+          this.feedback = null;
+          this.feedbackCopy = null;
+        }, 5000);
+      },
+      (errmess) => {
+        this.feedback = null;
+        this.feedbackCopy = null;
+        this.errMsg = <any>errmess;
+      }
+    );
     this.feedbackForm.reset({
       firstname: "",
       lastname: "",
