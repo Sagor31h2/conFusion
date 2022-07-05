@@ -3,14 +3,13 @@ import { Leader } from "../shared/leader";
 import { LEADERS } from "../shared/leaders";
 import { promise } from "protractor";
 
-import { map, catchError } from "rxjs/operators";
+import { map, catchError ,  delay } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 import { ProcessHTTPMsgService } from "./process-httpmsg.service";
 import { baseURL } from "../shared/baseurl";
 
 //rxjs
 import { Observable, of } from "rxjs";
-import { delay } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
